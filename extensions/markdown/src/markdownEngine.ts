@@ -55,6 +55,7 @@ export class MarkdownEngine {
 		if (!this.md) {
 			const hljs = require('highlight.js');
 			const mdnh = require('markdown-it-named-headers');
+			const mdemoji = require('markdown-it-emoji');
 			this.md = require('markdown-it')({
 				html: true,
 				highlight: (str: string, lang: string) => {
@@ -67,7 +68,7 @@ export class MarkdownEngine {
 				}
 			}).use(mdnh, {
 				slugify: (header: string) => TableOfContentsProvider.slugify(header)
-			});
+			}).use(mdemoji);
 
 			for (const plugin of this.plugins) {
 				this.usePlugin(plugin);
